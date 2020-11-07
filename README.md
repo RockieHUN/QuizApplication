@@ -1,3 +1,3 @@
-<img src="https://github.com/RockieHUN/QuizApplication/blob/master/sc3.jpg" width="480" height="720"/>
-![Screenshot](sc2.jpg = 480x720)
-![Screenshot](sc3.jpg = 480x720)
+<img src="https://github.com/RockieHUN/QuizApplication/blob/master/sc1.jpg" width="24%"/>
+<img src="https://github.com/RockieHUN/QuizApplication/blob/master/sc2.jpg" width="24%"/>
+<img src="https://github.com/RockieHUN/QuizApplication/blob/master/sc3.jpg" width="24%"/>
