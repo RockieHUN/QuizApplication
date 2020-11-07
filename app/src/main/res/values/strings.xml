@@ -6,7 +6,6 @@
     <string name="s_next_button">Next</string>
 
 
-
     <string name="QuestionText"> Nincs kérdés </string>
     <string name="restartButton">Restart</string>
 
@@ -14,4 +13,10 @@
     <string name="chart_correct">CORRECT</string>
     <string name="chart_wrong">WRONG</string>
     <string name="chart_0">0</string>
+
+    <!-- Register -->
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="passwordAgain_hint">Password Again</string>
+    <string name="button_register">Register</string>
 </resources>

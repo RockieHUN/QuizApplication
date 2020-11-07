@@ -32,7 +32,7 @@ class LineChart @JvmOverloads constructor(
         paint.strokeWidth=2f
         paint.color= Color.RED
 
-        //ger results from shared pref
+        //get results from shared pref
         sharedPref = context.getSharedPreferences("results",Context.MODE_PRIVATE)
         var preferences = sharedPref.all
 
