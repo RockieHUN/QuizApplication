@@ -1,3 +1,3 @@
-![Screenshot](sc1.jpg)
-![Screenshot](sc2.jpg)
-![Screenshot](sc3.jpg)
+![Screenshot](sc1.jpg = 480x720)
+![Screenshot](sc2.jpg = 480x720)
+![Screenshot](sc3.jpg = 480x720)
