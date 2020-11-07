@@ -11,6 +11,15 @@ class MyViewModel(
      //var answers: MutableList<MutableList<Boolean>> = mutableListOf<MutableList<Boolean>>()
      private var answers : MutableLiveData <MutableList<MutableList<Boolean>>> = MutableLiveData<MutableList<MutableList<Boolean>>>()
      private var count : MutableLiveData <Int> = MutableLiveData<Int>()
+     private var results : MutableLiveData <MutableList<Int>> = MutableLiveData<MutableList<Int>>()
+
+    fun setResults(list : MutableList<Int>){
+        results.value=list
+    }
+
+    fun getResults () : MutableList<Int>{
+        return results.value!!
+    }
 
     fun setCount(number :Int){
         this.count.value = number

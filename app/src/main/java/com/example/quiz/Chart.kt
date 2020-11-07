@@ -1,14 +1,19 @@
 package com.example.quiz
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 
 class LineChart @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr){
+
+
+    private lateinit var sharedPref : SharedPreferences
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply{
         style = Paint.Style.FILL
@@ -27,36 +32,32 @@ class LineChart @JvmOverloads constructor(
         paint.strokeWidth=2f
         paint.color= Color.RED
 
-        canvas?.drawRoundRect(RectF(),25.toFloat(),20.toFloat(),paint)
+        //ger results from shared pref
+        sharedPref = context.getSharedPreferences("results",Context.MODE_PRIVATE)
+        var preferences = sharedPref.all
 
-        //draw Axes
+        var total = preferences["total"]
+        var correct = preferences ["correct"]
+        var wrong = preferences["wrong"]
+
+        total as Int
+        correct as Int
+        wrong as Int
+
         var startwidth=width*10/100
-        paint.color=Color.BLACK
-        canvas?.drawRect(20f,20f,40f,40f,paint)
-
-        //canvas?.drawText("Not implemented",(width/3).toFloat(),40f,paint)
-        //canvas?.drawCircle((width/2).toFloat(),(height/2).toFloat(),20.toFloat(),paint)
-    }
+        var rectWidth = (width - 2*startwidth) / 3
+        var unit = height / total
 
 
-    private fun drawAxes(canvas: Canvas?){
-        paint.color= Color.GRAY
-        paint.strokeWidth=2f
-
-        //canvas?.drawLine(10f,5f,10f,height.toFloat()-10f,paint)
-
-        //x axes
-        val heightOfX=height.toFloat()-50f
-
-        canvas?.drawLine(12f,heightOfX,width.toFloat()-10f,heightOfX,paint)
-
-        val increment = (width-26)/10
-        var x = 26f
-        val y = heightOfX
-        for ( i in 1..10){
-            canvas?.drawLine(x,y-10f,x,y+10f,paint)
-            x+=increment
-        }
+        //draw chart
+        paint.color = Color.GREEN
+        canvas?.drawRect(startwidth.toFloat(),(height-unit*correct).toFloat(),(startwidth+rectWidth).toFloat(),height.toFloat(),paint)
+        startwidth += rectWidth
+        paint.color = Color.BLUE
+        canvas?.drawRect(startwidth.toFloat(),(height-unit*total).toFloat(),(startwidth+rectWidth).toFloat(),height.toFloat(),paint)
+        startwidth+=rectWidth
+        paint.color = Color.RED
+        canvas?.drawRect(startwidth.toFloat(),(height-unit*wrong).toFloat(),(startwidth+rectWidth).toFloat(),height.toFloat(),paint)
 
 
     }

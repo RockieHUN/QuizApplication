@@ -13,12 +13,8 @@ import com.example.quiz.databinding.FragmentQuestionHolderBinding
 
 
 class QuestionHolderFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
     private lateinit var binding : FragmentQuestionHolderBinding
-
-
     private val viewModel : MyViewModel by activityViewModels()
 
 
@@ -29,8 +25,6 @@ class QuestionHolderFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_question_holder,container,false)
         return binding.root
-
-
 
     }
 
@@ -61,10 +55,16 @@ class QuestionHolderFragment : Fragment() {
                 counter++
                 fragment = QuestionFragment.newInstance(questions[counter])
                 fragmentTransaction.replace(R.id.fragment_container,fragment)
+                if (counter+1 == questions.size)
+                {
+                    binding.nextButton.text = "FINISH"
+                }
                 viewModel.setCount(counter)
                 fragmentTransaction.commit()
             }
             else{
+                answers = viewModel.getAnswers()
+                generateResults(questions,answers)
                 findNavController().navigate(R.id.action_questionHolderFragment_to_statisticFragment)
             }
         }
@@ -75,6 +75,9 @@ class QuestionHolderFragment : Fragment() {
                 counter --
                 fragment = QuestionFragment.newInstance(questions[counter])
                 fragmentTransaction.replace(R.id.fragment_container,fragment)
+                if (counter == questions.size -2){
+                    binding.nextButton.text="NEXT"
+                }
                 viewModel.setCount(counter)
                 fragmentTransaction.commit()
             }
@@ -105,6 +108,27 @@ class QuestionHolderFragment : Fragment() {
 
         questions.add(Question(text,answers))
 
+
+        text = "Válaszd ki az igaz kijelentéseket'"
+        answers = mutableListOf<Pair<String,Boolean>>()
+        answers.add(Pair("Egy Fragment több Activity-t tartalmazhat",false))
+        answers.add(Pair("Egy abstract osztály példányosítható",false))
+        answers.add(Pair("Egy Activityn belül több fragment alkalmazható",true))
+        answers.add(Pair("Egy Fragmentből több Fragmentbe is navigálhatunk",true))
+
+        questions.add(Question(text,answers))
+
+        text = "Válaszd ki az HAMIS kijelentéseket a SharedPreferences-re vonatkozóan:"
+        answers = mutableListOf<Pair<String,Boolean>>()
+        answers.add(Pair("adatmegosztásra alkalmas",false))
+        answers.add(Pair("globális változóban tárolja az adatokat",true))
+        answers.add(Pair("fájlban tárolja az adatokat",false))
+        answers.add(Pair("egyszerre csak egy változót tud tárolni",true))
+
+
+        questions.add(Question(text,answers))
+
+
         return questions
     }
 
@@ -122,5 +146,32 @@ class QuestionHolderFragment : Fragment() {
         }
 
         return answers
+    }
+
+    private fun generateResults(questions : MutableList<Question>, answers : MutableList<MutableList<Boolean>>){
+
+        var total : Int = answers.size
+        var correct : Int = 0
+        var wrong : Int = 0
+
+
+        for (i in 0 until questions.size){
+            var isCorrect = true
+            for (j in questions[i].answers.indices)
+            {
+                if (questions[i].answers[j].second != answers[i][j]){
+                    isCorrect = false
+                    break
+                }
+            }
+            if (isCorrect){
+                correct += 1
+            }
+            else{
+                wrong += 1
+            }
+        }
+        viewModel.setResults(mutableListOf(total,correct,wrong))
+
     }
 }
