@@ -109,7 +109,7 @@ class QuestionHolderFragment : Fragment() {
         questions.add(Question(text,answers))
 
 
-        text = "Válaszd ki az igaz kijelentéseket'"
+        text = "Válaszd ki az igaz kijelentéseket!"
         answers = mutableListOf<Pair<String,Boolean>>()
         answers.add(Pair("Egy Fragment több Activity-t tartalmazhat",false))
         answers.add(Pair("Egy abstract osztály példányosítható",false))
@@ -118,7 +118,7 @@ class QuestionHolderFragment : Fragment() {
 
         questions.add(Question(text,answers))
 
-        text = "Válaszd ki az HAMIS kijelentéseket a SharedPreferences-re vonatkozóan:"
+        text = "Válaszd ki a HAMIS kijelentéseket a SharedPreferences-re vonatkozóan:"
         answers = mutableListOf<Pair<String,Boolean>>()
         answers.add(Pair("adatmegosztásra alkalmas",false))
         answers.add(Pair("globális változóban tárolja az adatokat",true))
